@@ -3,6 +3,7 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 import random
 
+
 console = Console()
 
 startNumber = 1 + random.randint(0, 20)
