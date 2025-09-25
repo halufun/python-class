@@ -16,7 +16,7 @@ console.print(f"[bold green]I have a number between [bold red]{startNumber}[/bol
 while True:
     guess = Prompt.ask("[red]Make a guess[/red]")
     if guess == "quit":
-        quit()
+        break
     try:
         guess = int(guess)
     except ValueError:
