@@ -6,6 +6,7 @@ import random
 class character():
     def __init__(self):
         self.hp = 30 # direct value
+        self.maxHp = 30
         self.power = 5 # direct value
         self.damage = 5
         self.armor = 15 # direct value. If the opponent's attack class is higher than the armor class, it gets to be proccessed. Otherwise, its a [attack] out of [defense] chance to be processed.
@@ -17,6 +18,9 @@ class character():
         else:
             return False
         
+    def heal(self):
+        self.hp = self.maxHp
+        
 class goblin(character):
     def __init__(self):
         super().__init__()
@@ -25,6 +29,7 @@ class player(character):
     def __init__(self):
         super().__init__()
         self.hp = 80
+        self.maxHp = 80
         self.power = 12
         self.damage = 10
         self.armor = 20
