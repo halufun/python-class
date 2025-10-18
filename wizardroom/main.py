@@ -81,3 +81,19 @@ def printRoomDesc(room):
     console.print(f"[blue]{rooms[room]["desc"]}[/blue]")
 
 printRoomDesc("room1")
+console.print(f"The available rooms are:\n{rooms["room1"]["links"]}")
+playermain = player()
+playermain.hp = 15
+console.print(f"Your health is currently: {playermain.hp}\n")
+console.print("Choose an option:")
+console.print("1 - Heal")
+console.print("2 - Move rooms")
+
+answer = Prompt.ask("Pick a number")
+
+match answer:
+    case "1":
+        playermain.heal()
+    case "2":
+        pass
+console.print(f"Your health is currently: {playermain.hp}\n")
