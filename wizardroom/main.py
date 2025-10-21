@@ -37,6 +37,22 @@ class character():
 class goblin(character):
     def __init__(self):
         super().__init__()
+class orc(character):
+    def __init__(self):
+        super().__init__()
+        self.hp = 120
+        self.armor = 50
+        self.power = 20
+        self.maxHp = 120
+        self.damage = 15
+class skeleton(character):
+    def __init__(self):
+        super().__init__()
+        self.hp = 15
+        self.armor = 5
+        self.power = 10
+        self.maxHp = 15
+        self.damage = 30
 
 class player(character):
     def __init__(self):
@@ -53,6 +69,14 @@ console = Console()
 vars = {
     "playerchar": player(),
     "currentRoom": "room1",
+
+    "characters": {
+        "sneed": goblin(),
+        "bingus": goblin(),
+        "wurgus": orc(),
+        "snorblot": goblin(),
+        "skattle": skeleton()
+    },
 
     "rooms": {
         "room1": {
