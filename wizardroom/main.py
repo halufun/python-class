@@ -2,7 +2,20 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
 import random
-
+import json
+import os
+class data():
+    def save(savedata):
+        f = None
+        try:
+            with open("saves/1.save", "x") as f:
+                f.write(str(savedata))
+        except OSError:
+            with open("saves/1.save", "w") as f:
+                f.write(str(savedata))
+    def load():
+        f = open("saves/1.save")
+        return str(f)
 class character():
     def __init__(self):
         self.hp = 30 # direct value
@@ -34,57 +47,64 @@ class player(character):
         self.damage = 10
         self.armor = 20
 
-
-console = Console()
 currentRoomSymbol = "▮"
 roomSymbol = "▯"
-rooms = {
-    "room1": {
-        "name": "Entrance",
-        "links": {
-            "north": "room2"
+console = Console()
+vars = {
+    "playerchar": player(),
+    "currentRoom": "room1",
+
+    "rooms": {
+        "room1": {
+            "name": "Entrance",
+            "links": {
+                "north": "room2"
+            },
+            "position": [0,0],
+            "desc": "You stand before a dimly-lit doorway entrance to a massive castle. Goblins can be seen patrolling on top of the walls, and a few cast glaces down upon you. Your kind may not be very welcome here...",
+            "tooltip": "Go back to whence you came...",
+            "cleared": True,
+            "enemies": {}
         },
-        "position": [0,0],
-        "desc": "You stand before a dimly-lit doorway entrance to a massive castle. Goblins can be seen patrolling on top of the walls, and a few cast glaces down upon you. Your kind may not be very welcome here...",
-        "tooltip": "Go back to whence you came...",
-        "enemies": {}
-    },
-    "room2": {
-        "name": "Hallway",
-        "links": {
-            "north": "room3",
-            "south": "room1"
+        "room2": {
+            "name": "Hallway",
+            "links": {
+                "north": "room3",
+                "south": "room1"
+            },
+            "position": [0,1],
+            "desc": "You now stand inside the hallway towards the castle... You have a feeling that, after this point, there is no turning back. Are you sure about this?",
+            "tooltip": "Proceed into the castle...",
+            "cleared": True,
+            "enemies": {}
         },
-        "position": [0,1],
-        "desc": "You now stand inside the hallway towards the castle... You have a feeling that, after this point, there is no turning back. Are you sure about this?",
-        "tooltip": "Proceed into the castle...",
-        "enemies": {}
-    },
-    "room3": {
-        "name": "Hallway",
-        "links": {
-            "east": "room4",
-            "west": "room5"
-        },
-        "position": [0,2],
-        "desc": "3 hooting goblins notice you! Prepare for a fight!",
-        "tooltip": "I'm ready.",
-        "enemies": {
-            "gob1": goblin(),
-            "gob2": goblin(),
-            "gob3": goblin()
+        "room3": {
+            "name": "Hallway",
+            "links": {
+                "east": "room4",
+                "west": "room5"
+            },
+            "position": [0,2],
+            "desc": "3 hooting goblins notice you! Prepare for a fight!",
+            "tooltip": "I'm ready.",
+            "cleared": False,
+            "enemies": {
+                "gob1": goblin(),
+                "gob2": goblin(),
+                "gob3": goblin()
+            }
         }
-    },
+    }
 }
 
 def printRoomDesc(room):
-    console.print(f"[blue]{rooms[room]["desc"]}[/blue]")
+    console.print(f"[blue]{vars["rooms"][room]["desc"]}[/blue]")
+data.save(vars)
 
 printRoomDesc("room1")
-console.print(f"The available rooms are:\n{rooms["room1"]["links"]}")
-playermain = player()
-playermain.hp = 15
-console.print(f"Your health is currently: {playermain.hp}\n")
+console.print(f"The available rooms are:\n{vars["rooms"]["room1"]["links"]}")
+vars["playerchar"].hp = 15
+console.print(f"Your health is currently: {vars["playerchar"].hp}\n")
 console.print("Choose an option:")
 console.print("1 - Heal")
 console.print("2 - Move rooms")
@@ -93,7 +113,10 @@ answer = Prompt.ask("Pick a number")
 
 match answer:
     case "1":
-        playermain.heal()
+        vars["playerchar"].heal()
     case "2":
         pass
-console.print(f"Your health is currently: {playermain.hp}\n")
+console.print(f"Your health is currently: {vars["playerchar"].hp}\n")
+data.load()
+console.print(vars)
+console.print(f"Your health is currently: {vars["playerchar"].hp}\n")
