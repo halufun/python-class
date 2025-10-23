@@ -5,20 +5,22 @@ import random
 import json
 import os
 
-file_path = os.path.abspath(__file__)
-save_path = f"{os.path.dirname(file_path)}\\saves\\1.save"
-try:
-    with open(save_path, "x") as temp:
-        temp.write("")
-except:
-    pass
+
 class data():
-    def save(savedata):
+    def __init__(self):
+        self.file_path = os.path.abspath(__file__)
+        self.save_path = f"{os.path.dirname(self.file_path)}\\saves\\1.save"
+        try:
+            with open(self.save_path, "x") as temp:
+                temp.write("")
+        except:
+            pass
+    def save(self, savedata):
         f = None
-        with open(save_path, "w") as f:
+        with open(self.save_path, "w") as f:
             f.write(str(savedata))
-    def load():
-        f = open(save_path)
+    def load(self):
+        f = open(self.save_path)
         return str(f)
 class character():
     def __init__(self):
@@ -127,7 +129,7 @@ vars = {
 
 def printRoomDesc(room):
     console.print(f"[blue]{vars["rooms"][room]["desc"]}[/blue]")
-data.save(vars)
+data.save(data(), vars)
 
 printRoomDesc("room1")
 console.print(f"The available rooms are:\n{vars["rooms"]["room1"]["links"]}")
@@ -145,6 +147,6 @@ match answer:
     case "2":
         pass
 console.print(f"Your health is currently: {vars["playerchar"].hp}\n")
-data.load()
+data.load(data())
 console.print(vars)
 console.print(f"Your health is currently: {vars["playerchar"].hp}\n")
