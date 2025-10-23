@@ -4,17 +4,21 @@ from rich.prompt import Prompt
 import random
 import json
 import os
+
+file_path = os.path.abspath(__file__)
+save_path = f"{os.path.dirname(file_path)}\\saves\\1.save"
+try:
+    with open(save_path, "x") as temp:
+        temp.write("")
+except:
+    pass
 class data():
     def save(savedata):
         f = None
-        try:
-            with open("saves/1.save", "x") as f:
-                f.write(str(savedata))
-        except OSError:
-            with open("saves/1.save", "w") as f:
-                f.write(str(savedata))
+        with open(save_path, "w") as f:
+            f.write(str(savedata))
     def load():
-        f = open("saves/1.save")
+        f = open(save_path)
         return str(f)
 class character():
     def __init__(self):
