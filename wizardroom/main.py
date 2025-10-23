@@ -24,6 +24,7 @@ class data():
         return str(f)
 class character():
     def __init__(self):
+        self.race = "character"
         self.hp = 30 # direct value
         self.maxHp = 30
         self.power = 5 # direct value
@@ -43,9 +44,11 @@ class character():
 class goblin(character):
     def __init__(self):
         super().__init__()
+        self.race = "goblin"
 class orc(character):
     def __init__(self):
         super().__init__()
+        self.race = "orc"
         self.hp = 120
         self.armor = 50
         self.power = 20
@@ -54,6 +57,7 @@ class orc(character):
 class skeleton(character):
     def __init__(self):
         super().__init__()
+        self.race = "skeleton"
         self.hp = 15
         self.armor = 5
         self.power = 10
@@ -63,6 +67,7 @@ class skeleton(character):
 class player(character):
     def __init__(self):
         super().__init__()
+        self.race = "human"
         self.hp = 80
         self.maxHp = 80
         self.power = 12
