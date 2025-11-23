@@ -5,21 +5,32 @@ import random
 import json
 import os
 
-
+class dLog():
+    def __init__(self, data):
+        self.file_path = os.path.abspath(__file__)
+        self.log_path = f"{os.path.dirname(self.file_path)}/logs/1.log"
+        try:
+            with open(self.log_path, "a") as temp:
+                temp.write(data+"\n")
+        except:
+            pass
 class data():
     def __init__(self):
         self.file_path = os.path.abspath(__file__)
-        self.save_path = f"{os.path.dirname(self.file_path)}\\saves\\1.save"
+        self.save_path = f"{os.path.dirname(self.file_path)}/saves/1.save"
+        dLog("Initializing save system.")
         try:
             with open(self.save_path, "x") as temp:
                 temp.write("")
         except:
             pass
     def save(self, savedata):
+        dLog("Saving data.")
         f = None
         with open(self.save_path, "w") as f:
             f.write(str(savedata))
     def load(self):
+        dLog("Loading data.")
         f = open(self.save_path)
         return str(f)
 class character():
@@ -136,8 +147,10 @@ def printRoomDesc(room):
     console.print(f"[blue]{vars["rooms"][room]["desc"]}[/blue]")
 data.save(data(), vars)
 
+dLog("GAMEPLAY: Printing rooms.")
 printRoomDesc("room1")
 console.print(f"The available rooms are:\n{vars["rooms"]["room1"]["links"]}")
+dLog("GAMEPLAY: Printing options.")
 vars["playerchar"].hp = 15
 console.print(f"Your health is currently: {vars["playerchar"].hp}\n")
 console.print("Choose an option:")
@@ -148,6 +161,7 @@ answer = Prompt.ask("Pick a number")
 
 match answer:
     case "1":
+        dLog("GAMEPLAY: Healed MC.")
         vars["playerchar"].heal()
     case "2":
         pass
